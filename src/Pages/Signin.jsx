@@ -30,7 +30,7 @@ const Signup = () => {
             setLoading(true)
             await signup(emailRef.current.value,passwordRef.current.value)
             alert("Signin Successful")
-            navigate("/login")
+            navigate("/")
         } catch (error) {
             alert(error.message);
         }
@@ -51,7 +51,7 @@ const Signup = () => {
                     <label className="form-check-label " htmlFor="exampleCheck1"><small>Subscribe to personalized sale offer & updates </small></label>
                 </div>
                 <p></p>
-                <button className='btn btn-primary  button' disabled={loading || currentUser == null} onClick={handleSignin}>Sign Up</button>
+                <button className='btn btn-primary  button' disabled={loading || currentUser!== null} onClick={handleSignin}>Sign Up</button>
                 <p className='text-black-50 pt-4 pb-2 or'>or</p>
                 <div className="container-fluid logos pb-2">
                     <div className="row point-img">

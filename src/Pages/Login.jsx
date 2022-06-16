@@ -47,7 +47,7 @@ const Login = () => {
                 <input className='mb-2 pl-5 pr-5 text-center border border-dark height' type="password" ref={passwordRef}placeholder='password'/>
                 <br />
                 <p className='text-black-50 pointer pb-2'><small>Forgot Password ?</small></p>
-                <button className='btn btn-primary  button' disabled={loading || currentUser ==null} onClick={handleLogin}>Log In</button>
+                <button className='btn btn-primary  button' disabled={loading || currentUser !==null} onClick={handleLogin}>Log In</button>
                 <p className='text-black-50 pt-4 pb-4 or'>or</p>
                 <div className="container-fluid logos">
                     <div className="row point-img">

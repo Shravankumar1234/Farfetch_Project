@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Link} from "react-router-dom"
 import styled from "styled-components"
 import {FaRegUser} from "react-icons/fa"
@@ -6,6 +6,10 @@ import {BsSuitHeart} from "react-icons/bs"
 import {IoBagHandleOutline} from "react-icons/io5"
 import {AiOutlineSearch} from "react-icons/ai"
 import { CartCounter } from '../Pages/CartCounter'
+import { Box, Button } from '@chakra-ui/react'
+import{GrLogout} from "react-icons/gr"
+import { useNavigate } from "react-router-dom"
+import { useAuth, logOut } from '../Pages/Firebase/firebase'
 
 
 const MainNavdiv=styled.div`
@@ -49,6 +53,7 @@ const DIV1=styled.div`
      display: flex;
      position: ${props=>props.pos};
      padding: ${props=>props.p};
+     margin-left:${props=>props.ml}
     
     
 `
@@ -63,6 +68,21 @@ const DIV2=styled.div`
 `
 
 export const Navbar = () => {
+    const [loading,setLoading]=useState(false)
+    const currentUser=useAuth()
+    const navigate=useNavigate()
+
+    const handleLogout=async()=>{
+        try {
+            setLoading(true)
+            logOut();
+            alert("Logout Successful")
+            navigate("/")
+        } catch (error) {
+            alert(error.message)
+        }
+        setLoading(false)
+    }
   return (
      <MainNavdiv>
     <Offerdiv>
@@ -90,9 +110,12 @@ export const Navbar = () => {
                 <Link to="/Cart"style={{paddingLeft:"20px",textDecoration:"none",color:'black',fontSize:"18px"}}><IoBagHandleOutline fontSize="20px"/></Link>
                <DIV1 >
                 <CartCounter/>
-                <Link to="/"style={{paddingLeft:"20px",textDecoration:"none",color:'black',fontSize:"18px"}}><BsSuitHeart fontSize="20px"/></Link>
-              
+                <Link to="/"style={{paddingLeft:"20px",textDecoration:"none",color:'black',fontSize:"18px", marginRight:'20px'}}><BsSuitHeart fontSize="20px"/></Link>
+
                </DIV1>
+               <Box disabled={loading || currentUser==null} onClick={handleLogout} cursor="pointer">
+                Logout <GrLogout />
+            </Box>
             
         </DIV1>
         </Flex1>
